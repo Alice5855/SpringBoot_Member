@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+   <definition name="base" template="/WEB-INF/jsp/layout/base.jsp">
+       <put-attribute name="header" value="/WEB-INF/jsp/layout/header.jsp" />
+       <put-attribute name="body" value="" />
+   </definition>
+   
+	<definition name="resultBody" extends="base">
+		<put-attribute name="body" value="/WEB-INF/jsp/common/resultBody.jsp" />
+	</definition>
+	
+	<definition name="login" extends="base">
+		<put-attribute name="body" value="/WEB-INF/jsp/member/login.jsp" />
+	</definition>
+
+	<definition name="memberList" extends="base">
+		<put-attribute name="body" value="/WEB-INF/jsp/member/memberList.jsp" />
+	</definition>
+	
+	<definition name="memberReg" extends="base">
+		<put-attribute name="body" value="/WEB-INF/jsp/member/memberReg.jsp" />
+	</definition>
+	
+	<definition name="memberUpt" extends="base">
+		<put-attribute name="body" value="/WEB-INF/jsp/member/memberUpt.jsp" />
+	</definition>
+	
+	<definition name="addressAPIPopup" extends="base">
+		<put-attribute name="body" value="/WEB-INF/jsp/member/addressAPIPopup.jsp" />
+	</definition>
+
+</tiles-definitions>
