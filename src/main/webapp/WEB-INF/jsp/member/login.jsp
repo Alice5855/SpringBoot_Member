@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
 <style>
 	html,
@@ -37,8 +38,19 @@
 	  border-top-right-radius: 0;
 	}
 	
+	header {
+		display: none;
+	}
+	
+	.form-signin {
+		max-width: 480px;
+	}
 </style>
+
 <main class="form-signin w-100 m-auto">
+	<div class="text-center">
+		<img src="images/logo2.png" alt="Logo" width="120" height="" class="">
+	</div>
 	<form id="loginForm" name="loginForm" class="form-signin text-center">
 		<h2 class="h3 mb-3 fw-normal">Please sign in</h2>
 		
@@ -51,8 +63,8 @@
 			<label for="memberPw">Password</label>
 		</div>
 		
-		<button class="btn btn-lg btn-primary w-100 mb-2" type="button" onclick="javascript:fn_signIn();">Sign in</button>
-		<button class="btn btn-lg btn-info w-100" type="button" onclick="javascript:fn_signUp();">Sign up</button>
+		<button class="btn btn-lg btn-primary w-75 mb-2" type="button" onclick="javascript:fn_signIn();">Sign in</button>
+		<button class="btn btn-lg btn-info w-75" type="button" onclick="javascript:fn_signUp();">Sign up</button>
 	</form>
 </main>
 
@@ -86,7 +98,7 @@
 						alert(data + "회원님, 환영합니다");
 						location.href="/selectMemberList.do?page=0&size=10"
 					}else{
-						alert("회원정보 가입을 해주세요");
+						alert("회원정보가 일치하지 않거나 존재하지 않습니다");
 					}
 				}
 			    ,error: function(xhr, status, error){

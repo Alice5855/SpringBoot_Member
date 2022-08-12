@@ -1,5 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<style>
+	header {
+		display: none;
+	}
+</style>
+
 <div class="container" style="margin-top:25px;">
 	<div id="memberSearchDiv" class="text-end">
 	

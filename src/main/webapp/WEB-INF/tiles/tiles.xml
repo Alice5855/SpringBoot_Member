@@ -15,7 +15,7 @@
 	<definition name="login" extends="base">
 		<put-attribute name="body" value="/WEB-INF/jsp/member/login.jsp" />
 	</definition>
-
+	
 	<definition name="memberList" extends="base">
 		<put-attribute name="body" value="/WEB-INF/jsp/member/memberList.jsp" />
 	</definition>

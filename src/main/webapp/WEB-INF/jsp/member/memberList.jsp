@@ -2,97 +2,199 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<div class="container" style="margin-top:25px;">
+<style>
+	#memberSearchDiv {
+		animation: ease;
+	}
+	.imgwrapper {
+		width: 75px;
+		height: 75px;
+		overflow: hidden;
+	}
+	.imgwrapper img {
+		height: 100%;
+		object-fit: cover;
+	}
+	.tsize1{
+		min-width: 45px;
+	}
+	.tsize2{
+		min-width: 60px;
+	}
+	
+	#custom-cards {
+	  	padding-top: 3rem !important;
+	}
+	.card {
+	  	background-size: cover;
+	  	background-repeat: no-repeat;
+	  	background-position: center;
+	}
+</style>
 
-	<div id="memberSearchDiv" class="text-center" style="display:none;float:right;">
-		<form id="searchForm" name="searchForm" method="post" class="navbar-form navbar-left" role="search">
-			<input type="hidden" id="page" name="page" value="" />
-			<input type="hidden" id="size" name="size" value="10" />
-			<div class="form-group">
-				<input type="text" id="memberName" name="memberName" class="form-control" placeholder="Search">
+<main class="col-md-9 m-sm-auto col-lg-10 px-md-4">
+	<div class="container-fluid">
+	
+		<div class="container px-4 py-5" id="custom-cards">
+			<div class="row align-items-stretch g-4">
+				<div>
+					<div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('images/carina_nebula.jpg');">
+						<div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+							<h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold ms-3">COMPANY NAME</h2>
+							<ul class="d-flex list-unstyled mt-auto">
+								<li class="me-auto">
+									<img src="images/logo9.png" alt="Logo" width="36" height="36" class="rounded-circle">
+								</li>
+								<li class="d-flex align-items-center me-3">
+									<small class="pname">Tacky Slogan</small>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 			</div>
-			<button type="submit" class="btn btn-default" onclick="javascript:fn_searchSubmit();">Search</button>
-		</form>
-	</div>
+		</div>
+		<!-- fill something card or jumbotron idk -->
 	
-	<div class="">
-		<table class="table table-bordered table-striped caption-top">
-			<caption>List of users</caption>
-			<thead class="table-dark">
-				<tr>
-					<th><input type="checkbox" onclick="javascript:fn_checkboxAllCheck(this);"/></th>
-					<th>순번</th>
-					<th>이름</th>
-					<th>이메일</th>
-					<th>전화번호</th>
-					<th>회원사진</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:if test="${empty resultList}">
+		<div id="memberSearchDiv" class="w-100 mb-3" style="display:none;">
+			<form id="searchForm" name="searchForm" method="post" class="" role="search">
+				<input type="hidden" id="page" name="page" value="" />
+				<input type="hidden" id="size" name="size" value="10" />
+				<div class="form-group col-6" style="display:inline-block;">
+					<input type="text" id="memberName" name="memberName" class="form-control" placeholder="Search">
+				</div>
+				<div class="float-end">
+					<button type="submit" class="btn btn-secondary" onclick="javascript:fn_searchSubmit();">Search</button>
+				</div>
+			</form>
+		</div>
+		<%--
+		<div class="table-responsive">
+			<table class="table table-sm table-bordered table-striped caption-top">
+				<caption>List of users</caption>
+				<thead class="table-dark text-center">
 					<tr>
-						<td colspan="6" class="text-center">조회된 데이터 없음</td>
+						<th>check<!-- <input type="checkbox" onclick="javascript:fn_checkboxAllCheck(this);"/> --></th>
+						<th class="tsize1">순번</th>
+						<th class="tsize2">이름</th>
+						<th>이메일</th>
+						<th>전화번호</th>
+						<th>회원사진</th>
 					</tr>
-				</c:if>
-				<c:if test="${not empty resultList}">
-					<c:forEach items="${resultList}" var="result" varStatus="status">
+				</thead>
+				<tbody class="text-center">
+					<c:if test="${empty resultList}">
 						<tr>
-							<td><input type="checkbox" name="chooseRecord"/></td>
-							<td>${status.count}
-								<input type="hidden" id="memberIdx_${status.index}" name="memberIdx" value="${result.memberIdx}" />
-							</td>
-							<td>${result.memberName}</td>
-							<td>${result.memberEmail}</td>
-							<td>${result.memberPhoneNumber}</td>
-							<td>
-								<c:set var="fullURL" value="${pageContext.request.requestURL}"></c:set>
-								<c:set var="pathURI" value="${pageContext.request.requestURI}"></c:set>
-								<c:set var="baseURL" value="${fn:replace(fullURL, pathURI, '')}"></c:set>
-								<img src="${baseURL}/${result.fileName}" width="" height="150" onerror='this.src="https://lh3.googleusercontent.com/proxy/mprsbp2upgHJarhPI4371ivf-3l2Eso7-_XVQTniwrVT7MT82pF-hNY3XtQcG0xDcZkv5uh9jTC38jMUTDN5ghmroGw34xm6tB7n4vQsXN9AWgwVkvjofKYUO6KFxdsvDmiKnMGuyb9o8ve9XX9DIb6CYolVCGUuEwvLHRW-vqknWOI_ZmnSo8KFI-zNe-y6dfE"'/>
-							</td>
+							<td colspan="6" class="text-center">조회된 데이터 없음</td>
 						</tr>
-					</c:forEach>
-				</c:if>
-			</tbody>
-		</table>	
-	</div>
-	
-	<div class="text-center">
-		<c:set var="startPage" value="${pagingVO.startPage}" />
-		<c:set var="endPage" value="${pagingVO.endPage}" />
-		<c:set var="totalPage" value="${pagingVO.totalPage}" />
-		<nav>
-			<ul class="pagination">
-				<c:if test="${result.number > result.size}">
-					<li>
-						<a href="javascript:fn_goPage('${startPage - 1}');" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-				   	</li>
-				</c:if>
-			   	<c:forEach var="i" begin="${startPage}" end="${endPage}">
-			   		<c:if test="${i eq result.number}">
-						<li class="active"><a href="javascript:fn_goPage('${i}');">${i}</a></li>
-			   		</c:if>
-			   		<c:if test="${i ne result.number}">
-						<li><a href="javascript:fn_goPage('${i}');">${i}</a></li>
-			   		</c:if>
+					</c:if>
+					<c:if test="${not empty resultList}">
+						<c:forEach items="${resultList}" var="result" varStatus="status">
+							<tr>
+								<td><input type="checkbox" name="chooseRecord"/></td>
+								<td class="tsize1">${status.count}
+									<input type="hidden" id="memberIdx_${status.index}" name="memberIdx" value="${result.memberIdx}" />
+								</td>
+								<td class="tsize2">${result.memberName}</td>
+								<td>${result.memberEmail}</td>
+								<td>${result.memberPhoneNumber}</td>
+								<td>
+									<c:set var="fullURL" value="${pageContext.request.requestURL}"></c:set>
+									<c:set var="pathURI" value="${pageContext.request.requestURI}"></c:set>
+									<c:set var="baseURL" value="${fn:replace(fullURL, pathURI, '')}"></c:set>
+									<div class="imgwrapper">
+										<img src="${baseURL}/${result.fileName}" onerror='this.src="images/defaultpic.png"'/>
+									</div>
+								</td>
+							</tr>
+						</c:forEach>
+					</c:if>
+				</tbody>
+			</table>
+		</div>
+		--%>
+		
+		<div class="list-group w-auto">
+			<c:if test="${empty resultList}">
+				<a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+					<div class="imgwrapper">
+							<img src="images/defaultpic.png" />
+						</div>
+					<div class="d-flex gap-2 w-100 justify-content-between">
+						<div>
+							<p class="mb-0 opacity-75">조회된 데이터 없음</p>
+						</div>
+					</div>
+				</a>
+			</c:if>
+			<c:if test="${not empty resultList}">
+				<c:forEach items="${resultList}" var="result" varStatus="status">
+					<a href="/fwdMemberUpt.do?memberIdx=${result.memberIdx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+						<c:set var="fullURL" value="${pageContext.request.requestURL}"></c:set>
+						<c:set var="pathURI" value="${pageContext.request.requestURI}"></c:set>
+						<c:set var="baseURL" value="${fn:replace(fullURL, pathURI, '')}"></c:set>
+						<div class="imgwrapper">
+							<img src="${baseURL}/${result.fileName}" onerror='this.src="images/defaultpic.png"'/>
+						</div>
+						<div class="d-flex gap-2 w-100 justify-content-between">
+							<div>
+								<h6 class="mb-0">${result.memberName}</h6>
+								<p> Number : ${status.count}
+									<input type="hidden" id="memberIdx_${status.index}" name="memberIdx" value="${result.memberIdx}" /></p>
+								<p class="mb-0 opacity-75">${result.memberEmail}</p>
+								<p class="mb-0 opacity-75">${result.memberPhoneNumber}</p>
+							</div>
+							<small class="opacity-50 text-nowrap"><input type="checkbox" name="chooseRecord"/></small>
+						</div>
+					</a>
 				</c:forEach>
-				<c:if test="${endPage != totalPage}">
-					<li>
-						<a href="javascript:fn_goPage('${endPage + 1}');" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-					</li>
-				</c:if>
-			</ul>
-		</nav>
-	</div>
+			</c:if>
+		</div>
+		
+		
+		<div class="text-center mt-2">
+			<c:set var="startPage" value="${pagingVO.startPage}" />
+			<c:set var="endPage" value="${pagingVO.endPage}" />
+			<c:set var="totalPage" value="${pagingVO.totalPage}" />
+			<nav>
+				<ul class="pagination justify-content-center">
+					<c:if test="${result.number > result.size}">
+						<li class="page-item">
+							<a href="javascript:fn_goPage('${startPage - 1}');" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+					   	</li>
+					</c:if>
+				   	<c:forEach var="i" begin="${startPage}" end="${endPage}">
+				   		<c:if test="${i eq result.number}">
+							<li class="page-item active">
+								<a href="javascript:fn_goPage('${i}');" class="page-link">${i}</a>
+							</li>
+				   		</c:if>
+				   		<c:if test="${i ne result.number}">
+							<li class="page-item">
+								<a href="javascript:fn_goPage('${i}');" class="page-link">${i}</a>
+							</li>
+				   		</c:if>
+					</c:forEach>
+					<c:if test="${endPage != totalPage}">
+						<li class="page-item">
+							<a href="javascript:fn_goPage('${endPage + 1}');" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+						</li>
+					</c:if>
+				</ul>
+			</nav>
+		</div>
+		
+		<div class="mb-5">
+			<button type="button" class="btn btn-md btn-primary pull-right" onclick="javascript:fn_reg();">등록</button>
+			<button type="button" class="btn btn-md btn-info pull-right" onclick="javascript:fn_search();">검색</button>
+			<button type="button" class="btn btn-md btn-danger pull-right" onclick="javascript:fn_delete();">삭제</button>
+			<%--
+			<button type="button" class="btn btn-md btn-warning pull-right" onclick="javascript:fn_update();">관리</button>
+			--%>
+		</div>
 	
-	<div>
-		<button type="button" class="btn btn-md btn-primary pull-right" onclick="javascript:fn_reg();">등록</button>
-		<button type="button" class="btn btn-md btn-info pull-right" onclick="javascript:fn_search();">검색</button>
-		<button type="button" class="btn btn-md btn-danger pull-right" onclick="javascript:fn_delete();">삭제</button>
-		<button type="button" class="btn btn-md btn-warning pull-right" onclick="javascript:fn_update();">관리</button>
 	</div>
-
-</div>
+</main>
 
 <form id="detailForm" name="detailForm" method="post">
 	<input type="hidden" id="memberIdxs" name="memberIdxs" value="" />
@@ -125,7 +227,7 @@
 		var memberSearchDiv = document.getElementById("memberSearchDiv");
 		
 		if(memberSearchDiv.style.display == "none"){
-			memberSearchDiv.style.display = "block";
+			memberSearchDiv.style.display = "inline-block";
 		}else{
 			memberSearchDiv.style.display = "none";
 		}
@@ -139,6 +241,8 @@
 		f.submit();
 	}
 
+	
+	
 	<%-- 삭제 --%>
 	function fn_delete(){
 		var memberIdxs = [];
@@ -162,6 +266,7 @@
 		f.action = "/deleteMember.do";
 		f.submit();
 	}
+	
 
 	<%-- 수정페이지 이동 --%>
 	function fn_update(){
